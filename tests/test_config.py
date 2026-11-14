@@ -11,9 +11,21 @@ def test_defaults():
 
 
 def test_overrides():
-    config = Config.from_env({"GPON_HOST": "10.0.0.2", "GPON_USER": "ONTUSER", "GPON_PASSWORD": "secret",
-                              "POLL_INTERVAL": "10", "GPON_COMMAND_MODE": "Single"})
-    assert (config.user, config.password, config.poll_interval, config.command_mode) == ("ONTUSER", "secret", 10, "single")
+    config = Config.from_env(
+        {
+            "GPON_HOST": "10.0.0.2",
+            "GPON_USER": "ONTUSER",
+            "GPON_PASSWORD": "secret",
+            "POLL_INTERVAL": "10",
+            "GPON_COMMAND_MODE": "Single",
+        }
+    )
+    assert (config.user, config.password, config.poll_interval, config.command_mode) == (
+        "ONTUSER",
+        "secret",
+        10,
+        "single",
+    )
 
 
 def test_host_is_required():

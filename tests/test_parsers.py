@@ -4,8 +4,7 @@ import pytest
 
 from lantiq_onu_exporter import metrics
 from lantiq_onu_exporter.commands import works
-from lantiq_onu_exporter.parsers import (cpu_usage, parse, parse_cpu, parse_lan, parse_laser_age, parse_otop,
-                                         parse_ploam)
+from lantiq_onu_exporter.parsers import cpu_usage, parse, parse_cpu, parse_lan, parse_laser_age, parse_otop, parse_ploam
 from lantiq_onu_exporter.ssh import ANSI
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -56,7 +55,9 @@ def test_gtc_counters(reading):
 
 
 def test_unknown_link_code_is_none():
-    assert parse_lan("errorcode=0 pport=0 mode=15 enable=1 link_status=3 phy_duplex=1")["gpon_lan_link_speed_mbps"] is None
+    assert (
+        parse_lan("errorcode=0 pport=0 mode=15 enable=1 link_status=3 phy_duplex=1")["gpon_lan_link_speed_mbps"] is None
+    )
 
 
 def test_long_command_name_output_parses():
@@ -64,9 +65,11 @@ def test_long_command_name_output_parses():
 
 
 def test_otop_from_a_terminal_is_cleaned_and_parsed():
-    raw = ("\x1b[28;1HDDMI voltage                                       3253.05mV   \x1b[K"
-           "\x1b[29;1HRSSI 1490 power                                    18.36uW -17.24dBm \x1b[K"
-           "\x1b[30;1Htx power (se*(bias+mod/2-ith))                     1.66mW 2.19dBm  \x1b[K")
+    raw = (
+        "\x1b[28;1HDDMI voltage                                       3253.05mV   \x1b[K"
+        "\x1b[29;1HRSSI 1490 power                                    18.36uW -17.24dBm \x1b[K"
+        "\x1b[30;1Htx power (se*(bias+mod/2-ith))                     1.66mW 2.19dBm  \x1b[K"
+    )
     values = parse_otop(ANSI.sub("\n", raw))
     assert values["gpon_rx_power_dbm"] == -17.24
     assert values["gpon_tx_power_dbm"] == 2.19
@@ -81,13 +84,16 @@ def test_cpu_usage_between_polls():
     assert cpu_usage(second, first) is None
 
 
-@pytest.mark.parametrize("output, expected", [
-    ("errorcode=0 curr_state=5 previous_state=4", True),
-    ("errorcode=-1 (unknown command)", False),
-    ("ash: onu: not found", False),
-    ("otop: ../libtop/top_linux.c: 29: console_cbreak: Assertion `res == 0' failed.", False),
-    ("", False),
-])
+@pytest.mark.parametrize(
+    "output, expected",
+    [
+        ("errorcode=0 curr_state=5 previous_state=4", True),
+        ("errorcode=-1 (unknown command)", False),
+        ("ash: onu: not found", False),
+        ("otop: ../libtop/top_linux.c: 29: console_cbreak: Assertion `res == 0' failed.", False),
+        ("", False),
+    ],
+)
 def test_command_rejection_detection(output, expected):
     assert works(output) is expected
 

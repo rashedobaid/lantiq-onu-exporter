@@ -24,12 +24,21 @@ class Connection:
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         if config.password or config.key_file:
             client.connect(
-                config.host, port=config.port, username=config.user, password=config.password or None,
-                key_filename=config.key_file or None, look_for_keys=False, allow_agent=False,
-                timeout=CONNECT_TIMEOUT, banner_timeout=CONNECT_TIMEOUT, auth_timeout=CONNECT_TIMEOUT,
+                config.host,
+                port=config.port,
+                username=config.user,
+                password=config.password or None,
+                key_filename=config.key_file or None,
+                look_for_keys=False,
+                allow_agent=False,
+                timeout=CONNECT_TIMEOUT,
+                banner_timeout=CONNECT_TIMEOUT,
+                auth_timeout=CONNECT_TIMEOUT,
             )
         else:
-            transport = paramiko.Transport(socket.create_connection((config.host, config.port), timeout=CONNECT_TIMEOUT))
+            transport = paramiko.Transport(
+                socket.create_connection((config.host, config.port), timeout=CONNECT_TIMEOUT)
+            )
             transport.banner_timeout = CONNECT_TIMEOUT
             transport.connect()
             try:

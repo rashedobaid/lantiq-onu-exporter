@@ -1,5 +1,5 @@
 import re
-from typing import Dict, NamedTuple, Optional, Tuple
+from typing import NamedTuple, Optional
 
 from .commands import SYS_MARKER
 
@@ -9,9 +9,9 @@ LINK_STATUS_MBPS = {4: 1000, 5: 2500}
 
 
 class Reading(NamedTuple):
-    values: Dict[str, Optional[float]]
-    gtc: Dict[str, int]
-    cpu: Optional[Tuple[int, int]]
+    values: dict[str, Optional[float]]
+    gtc: dict[str, int]
+    cpu: Optional[tuple[int, int]]
 
 
 def parse(output):
@@ -33,8 +33,10 @@ def parse_lan(text):
     m = re.search(r"link_status=(\d+) phy_duplex=(\d+)", text)
     if not m:
         return {}
-    return {"gpon_lan_link_speed_mbps": LINK_STATUS_MBPS.get(int(m.group(1))),
-            "gpon_lan_full_duplex": int(m.group(2) == "1")}
+    return {
+        "gpon_lan_link_speed_mbps": LINK_STATUS_MBPS.get(int(m.group(1))),
+        "gpon_lan_full_duplex": int(m.group(2) == "1"),
+    }
 
 
 def parse_gtc(text):
@@ -93,8 +95,10 @@ def parse_otop(text):
     values = {}
     values["gpon_rx_power_milliwatts"], values["gpon_rx_power_dbm"] = parse_power(field(f, "RSSI 1490 power"))
     values["gpon_tx_power_milliwatts"], values["gpon_tx_power_dbm"] = parse_power(field(f, "tx power"))
-    for name, prefix in (("gpon_laser_temperature_celsius", "laser temperature"),
-                         ("gpon_die_temperature_celsius", "die temperature")):
+    for name, prefix in (
+        ("gpon_laser_temperature_celsius", "laser temperature"),
+        ("gpon_die_temperature_celsius", "die temperature"),
+    ):
         kelvin = first_number(field(f, prefix), "K")
         values[name] = None if kelvin is None else round(kelvin - 273.15, 2)
     currents = field(f, "actual bias / modulation current")
@@ -131,7 +135,8 @@ def parse_sys(text):
     if "MemTotal" in mem:
         values["gpon_memory_total_bytes"] = mem["MemTotal"]
         values["gpon_memory_available_bytes"] = mem.get(
-            "MemAvailable", mem.get("MemFree", 0) + mem.get("Buffers", 0) + mem.get("Cached", 0))
+            "MemAvailable", mem.get("MemFree", 0) + mem.get("Buffers", 0) + mem.get("Cached", 0)
+        )
     return values
 
 

@@ -1,7 +1,7 @@
 import logging
 import re
 from dataclasses import dataclass, field
-from typing import Dict, Optional
+from typing import Optional
 
 log = logging.getLogger(__name__)
 
@@ -25,7 +25,7 @@ def works(output):
 @dataclass
 class Plan:
     shell: bool
-    onu: Dict[str, str] = field(default_factory=dict)
+    onu: dict[str, str] = field(default_factory=dict)
     otop: Optional[str] = None
 
     @property
@@ -33,8 +33,10 @@ class Plan:
         return bool(self.shell and self.otop and "-b" in self.otop)
 
     def describe(self):
-        return (f"command mode: {'shell' if self.shell else 'single'}, "
-                f"onu: {', '.join(self.onu.values()) or 'none'}, otop: {self.otop or 'none'}")
+        return (
+            f"command mode: {'shell' if self.shell else 'single'}, "
+            f"onu: {', '.join(self.onu.values()) or 'none'}, otop: {self.otop or 'none'}"
+        )
 
 
 class Commands:
@@ -52,14 +54,16 @@ class Commands:
     def _variants(self, command, shell):
         if shell:
             return [command]
-        return [command] + [f"{directory.rstrip('/')}/{command}"
-                            for directory in self.config.tools_path.split(":") if directory]
+        return [command] + [
+            f"{directory.rstrip('/')}/{command}" for directory in self.config.tools_path.split(":") if directory
+        ]
 
     def _run_otop(self, command, shell):
         if shell and "-b" in command:
             return self.connection.run(f"{self._prefix(True)}{command} 2>&1 | head -n 60")
-        return self.connection.run(self._prefix(shell) + command, timeout=15, pty="-b" not in command,
-                                   stop=OTOP_LAST_FIELD)
+        return self.connection.run(
+            self._prefix(shell) + command, timeout=15, pty="-b" not in command, stop=OTOP_LAST_FIELD
+        )
 
     def _detect_shell(self):
         if self.config.command_mode != "auto":

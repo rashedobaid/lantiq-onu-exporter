@@ -14,8 +14,15 @@ def main():
     logging.basicConfig(level=config.log_level, format="%(asctime)s %(levelname)s %(message)s")
     metrics.clear()
     start_http_server(config.listen_port)
-    log.info("lantiq-onu-exporter %s listening on :%d, polling %s@%s:%d every %ss", __version__,
-             config.listen_port, config.user, config.host, config.port, config.poll_interval)
+    log.info(
+        "lantiq-onu-exporter %s listening on :%d, polling %s@%s:%d every %ss",
+        __version__,
+        config.listen_port,
+        config.user,
+        config.host,
+        config.port,
+        config.poll_interval,
+    )
     Poller(config).run_forever()
 
 
