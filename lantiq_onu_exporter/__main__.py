@@ -15,7 +15,7 @@ def main():
     metrics.clear()
     start_http_server(config.listen_port)
     log.info(
-        "lantiq-onu-exporter %s listening on :%d, polling %s@%s:%d every %ss",
+        "lantiq-onu-exporter %s listening on :%d, polling %s@%s:%d every %gs",
         __version__,
         config.listen_port,
         config.user,
