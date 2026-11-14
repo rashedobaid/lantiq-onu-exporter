@@ -1,0 +1,7 @@
+services:
+  lantiq-onu-exporter:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "${LISTEN_PORT:-9877}:${LISTEN_PORT:-9877}"
