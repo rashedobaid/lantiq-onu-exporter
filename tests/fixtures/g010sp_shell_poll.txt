@@ -1,0 +1,75 @@
+errorcode=0 curr_state=5 previous_state=4 elapsed_msec=4294720588 
+errorcode=0 pport=0 mode=15 enable=1 link_status=5 phy_duplex=1 
+errorcode=0 bip=0 hec_error_corr=1773 hec_error_uncorr=0 bwmap_error_corr=0 bwmap_error_uncorr=0 fec_error_corr=0 fec_words_corr=0 fec_words_uncorr=0 fec_words_total=0 fec_seconds=0 tx_gem_frames_total=71381757 tx_gem_bytes_total=2744903856 tx_gem_idle_frames_total=3614164913 rx_gem_frames_total=493037903 rx_gem_bytes_total=0 rx_gem_frames_dropped=0 omci_drop=0 drop=0 rx_oversized_frames=0 allocations_total=1614128992 allocations_lost=0 
+Page: status (1)
+status overview 
+ 
+chip version (fuse format)                         A22  (1)
+driver version (otop version)                      7.5.1  (7.5.1.0)
+state history                                      9 8 4 3 2 1 6 0 0 0 
+config reads                                       + + + + + + + + 
+table reads                                        + + + + + 
+PLL lock status                                    locked    
+Signal detect                                      true
+manage mode (OMU/BOSA/BOSA2), powerlevel           BOSA, normal (0)
+manual mode, BERT mode, BOSA loop mode             off, off, dual-loop      
+laser age (active time)                            0:27:26
+laser temperature (ext corr):                      320K     
+die temperature (int corr)                         328K     
+rx offset correction                               -7
+maximum bias / modulation current (chip)           78.00mA / 95.00mA   
+precalc. bias / modulation current                 9.02mA / 26.51mA (6)   
+actual bias / modulation current                   8.18mA / 25.85mA   
+bias / modulation change (errors)                  stable / stable (0 / 0) 
+integration coefficient bias / modulation          7 / 7   
+gain correction factor P0 / P1                     0.99 / 0.99   
+MPD target P0 / P1                                  +42 / +1148   
+MPD actual P0 / P1 (variation to target)           n/a       
+current offset                                     156.43uA     
+RSSI 1490 voltage, current                         132.63mV   132.63uA   
+RSSI 1550 voltage                                  498.78mV   
+RF 1550 voltage                                    499.76mV   
+DDMI voltage                                       3262.33mV   
+RSSI 1490 power                                    18.41uW -17.23dBm 
+tx power (se*(bias+mod/2-ith))                     1.64mW 2.15dBm  
+precalc. dcdc apd voltage, saturation              40.28V 160 (4)   
+DCDC APD target voltage (active/inactive)          40.28V (active)   
+DCDC APD voltage (regulation error), saturation    40.38V (-0.06V) 160   
+linear LDO converter (active/inactive)             (inactive)   
+@@sys
+184736.88 181564.50
+0.01 0.08 0.08 2/69 25870
+cpu  80754 0 233848 18156450 0 0 1923 0 0 0
+MemTotal:          60172 kB
+MemFree:           32808 kB
+Buffers:            2788 kB
+Cached:            11216 kB
+SwapCached:            0 kB
+Active:            13144 kB
+Inactive:           4008 kB
+Active(anon):       3500 kB
+Inactive(anon):       52 kB
+Active(file):       9644 kB
+Inactive(file):     3956 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+SwapTotal:             0 kB
+SwapFree:              0 kB
+Dirty:                 0 kB
+Writeback:             0 kB
+AnonPages:          3168 kB
+Mapped:             2216 kB
+Shmem:               404 kB
+Slab:               5664 kB
+SReclaimable:       1780 kB
+SUnreclaim:         3884 kB
+KernelStack:         544 kB
+PageTables:          328 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:       30084 kB
+Committed_AS:      37512 kB
+VmallocTotal:    1048372 kB
+VmallocUsed:        1948 kB
+VmallocChunk:    1041656 kB
