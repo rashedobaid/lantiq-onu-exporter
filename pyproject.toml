@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "lantiq-onu-exporter"
-version = "0.1.0"
+version = "0.1.1"
 description = "Prometheus exporter for Lantiq Falcon based GPON SFP ONU sticks"
 readme = "README.md"
 license = { file = "LICENSE" }
